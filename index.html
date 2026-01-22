@@ -1,13 +1,126 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Assignment 1 – Hello World d3</title>
+
+  <!-- Load d3 -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+    }
+    svg {
+      background-color: white;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
 <div id="container"></div>
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script type="module">
 
 <script>
-  console.log(d3); // test if d3 is loaded
-  // Add an SVG
-  // Add Rectangles
-  // Add Circles
-  // Add Lines
-  // Add Polygons
+
+  const width = 900;
+  const height = 560;
+  const svg = d3.select("#container")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  const tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("position", "absolute")
+    .style("background", "#f9f9f9")
+    .style("padding", "6px 8px")
+    .style("border-radius", "4px")
+    .style("box-shadow", "0 2px 6px rgba(0,0,0,0.15)")
+    .style("pointer-events", "none")
+    .style("font-size", "12px")
+    .style("opacity", 0);
+
+  function showTip(evt, text) {
+    tooltip.style("left", (evt.pageX + 10) + "px")
+      .style("top", (evt.pageY + 10) + "px")
+      .style("display", "block")
+      .text(text);
+  }
+
+  function hideTip() {
+    tooltip.style("display", "none");
+  }
+
+  const rects = [
+    {x: 40, y: 50, w: 160, h: 100, fill: "#1f77b4"},
+    {x: 40, y: 170, w: 120, h: 60, fill: "#ff7f0e"}
+  ];
+  svg.selectAll(".myrect")
+    .data(rects)
+    .enter()
+    .append("rect")
+    .attr("class", "myrect")
+    .attr("x", d => d.x)
+    .attr("y", d => d.y)
+    .attr("width", d => d.w)
+    .attr("height", d => d.h)
+    .attr("fill", d => d.fill)
+    .attr("stroke", "#333")
+    .on("mouseover", function(event, d){ d3.select(this).attr("stroke-opacity",0.7); showTip(event, "Rectangle — color: " + d.fill); })
+    .on("mouseover", function(event, d){ d3.select(this).attr("stroke-opacity",0.7); tooltip.style("opacity",1).html("Rectangle — color: " + d.fill); })
+    .on("mousemove", function(event, d){ tooltip.style("left", (event.pageX + 10) + "px").style("top", (event.pageY + 10) + "px"); })
+    .on("mouseleave", function(){ d3.select(this).attr("stroke-opacity",1); tooltip.style("opacity",0); });
+  
+    const circles = [
+    {cx: 360, cy: 110, r: 55, fill: "#d62728"},
+    {cx: 460, cy: 200, r: 30, fill: "#2ca02c"}
+  ];
+  svg.selectAll(".mycircle")
+    .data(circles)
+    .enter()
+    .append("circle")
+    .attr("class", "mycircle")
+    .attr("cx", d => d.cx)
+    .attr("cy", d => d.cy)
+    .attr("r", d => d.r)
+    .attr("fill", d => d.fill)
+    .attr("stroke", "#222")
+    .on("mouseover", function(event, d){ d3.select(this).attr("stroke-opacity",0.7); tooltip.style("opacity",1).html("Circle — color: " + d.fill); })
+    .on("mousemove", function(event, d){ tooltip.style("left", (event.pageX + 10) + "px").style("top", (event.pageY + 10) + "px"); })
+    .on("mouseleave", function(){ d3.select(this).attr("stroke-opacity",1); tooltip.style("opacity",0); });
+  
+  const lines = [
+    {x1: 560, y1: 60, x2: 820, y2: 140, stroke: "#17becf", width: 5},
+    {x1: 560, y1: 160, x2: 820, y2: 240, stroke: "#9467bd", width: 3}
+  ];
+  svg.selectAll(".myline")
+    .data(lines)
+    .enter()
+    .append("line")
+    .attr("class", "myline")
+    .attr("x1", d => d.x1)
+    .attr("y1", d => d.y1)
+    .attr("x2", d => d.x2)
+    .attr("y2", d => d.y2)
+    .attr("stroke", d => d.stroke)
+    .attr("stroke-width", d => d.width)
+    .on("mouseover", function(event, d){ d3.select(this).attr("stroke-opacity",0.7); tooltip.style("opacity",1).html("Line — color: " + d.stroke); })
+    .on("mousemove", function(event, d){ tooltip.style("left", (event.pageX + 10) + "px").style("top", (event.pageY + 10) + "px"); })
+    .on("mouseleave", function(){ d3.select(this).attr("stroke-opacity",1); tooltip.style("opacity",0); });
+
+  const triangle = [ {x:200,y:320}, {x:320,y:480}, {x:80,y:480} ];
+  svg.append("polygon")
+    .attr("points", triangle.map(d => d.x + "," + d.y).join(" "))
+    .attr("fill", "#9467bd")
+    .attr("stroke", "#222")
+    .attr("stroke-width", 2)
+    .on("mouseover", function(event){ d3.select(this).attr("opacity",0.85); tooltip.style("opacity",1).html("Polygon (triangle) — color: " + triangleFill); })
+    .on("mousemove", function(event){ tooltip.style("left", (event.pageX + 10) + "px").style("top", (event.pageY + 10) + "px"); })
+    .on("mouseleave", function(){ d3.select(this).attr("opacity",1); tooltip.style("opacity",0); });
+
 </script>
+
+</body>
+</html>

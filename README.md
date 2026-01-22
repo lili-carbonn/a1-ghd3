@@ -85,3 +85,25 @@ Remember, it is up to *you* to define what constitutes a technical and design ac
 Be ambitious as these are designed to allow you to shape your learning.
 These are the only way to move from B to A territory.
 
+Project
+---
+
+- **Live demo:** Add your GitHub Pages link here after publishing, e.g. "http://YourUsernameGoesHere.github.io/01-ghd3/index.html".
+- **What I made:** A small d3 visualization that draws multiple rectangles, circles, lines, and a polygon (triangle). Hover a shape to see a tooltip identifying it.
+- **Technical achievements:** Used d3.js (v7) to create an SVG, bind simple arrays of shape data, and add hover interactions.
+- **Design achievements:** Chosen a clear color palette and added a small legend to explain shape types.
+- **Sources / credits:** Based on d3 examples and documentation at https://d3js.org. Code was written/modified for this assignment.
+
+Screenshot
+---
+
+Include 1-2 screenshots of your visualization here (optional). The working file is [index.html](index.html).
+
+Instructions
+---
+
+1. Edit and commit changes to the repository.
+2. Create a `gh-pages` branch or enable GitHub Pages for the repository and ensure the site serves from the root (or the `gh-pages` branch).
+3. Update the "Live demo" URL above with your GitHub Pages URL.
+
+
