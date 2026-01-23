@@ -61,7 +61,7 @@
     .attr("stroke", "#333")
     .on("mouseover", function(event, d){ d3.select(this).attr("stroke-opacity",0.7); tooltip.style("opacity",1).html("Rectangle — color: " + d.fill); })
     .on("mousemove", function(event, d){ tooltip.style("left", (event.pageX + 10) + "px").style("top", (event.pageY + 10) + "px"); })
-    .on("mouseleave", function(){ d3.select(this).attr("stroke-opacity",1); tooltip.style("opacity",0); });
+    .on("mouseleave", function(){ d3.select(this).attr("stroke-opacity",1); tooltip.style("opacity",0).html(""); });
   
     const circles = [
     {cx: 360, cy: 110, r: 55, fill: "#d62728"},
@@ -79,7 +79,7 @@
     .attr("stroke", "#222")
     .on("mouseover", function(event, d){ d3.select(this).attr("stroke-opacity",0.7); tooltip.style("opacity",1).html("Circle — color: " + d.fill); })
     .on("mousemove", function(event, d){ tooltip.style("left", (event.pageX + 10) + "px").style("top", (event.pageY + 10) + "px"); })
-    .on("mouseleave", function(){ d3.select(this).attr("stroke-opacity",1); tooltip.style("opacity",0); });
+    .on("mouseleave", function(){ d3.select(this).attr("stroke-opacity",1); tooltip.style("opacity",0).html(""); });
   
   const lines = [
     {x1: 560, y1: 60, x2: 820, y2: 140, stroke: "#17becf", width: 5},
@@ -98,20 +98,25 @@
     .attr("stroke-width", d => d.width)
     .on("mouseover", function(event, d){ d3.select(this).attr("stroke-opacity",0.7); tooltip.style("opacity",1).html("Line — color: " + d.stroke); })
     .on("mousemove", function(event, d){ tooltip.style("left", (event.pageX + 10) + "px").style("top", (event.pageY + 10) + "px"); })
-    .on("mouseleave", function(){ d3.select(this).attr("stroke-opacity",1); tooltip.style("opacity",0); });
+    .on("mouseleave", function(){ d3.select(this).attr("stroke-opacity",1); tooltip.style("opacity",0).html(""); });
 
   const triangle = [ {x:200,y:320}, {x:320,y:480}, {x:80,y:480} ];
 
-  const triangleFill = "#9467bd";
-
   svg.append("polygon")
     .attr("points", triangle.map(d => d.x + "," + d.y).join(" "))
-    .attr("fill", triangleFill)
+    .attr("fill", "#9467bd")
     .attr("stroke", "#222")
     .attr("stroke-width", 2)
-    .on("mouseover", function(event){ d3.select(this).attr("opacity",0.85); tooltip.style("opacity",1).html("Polygon (triangle) — color: " + triangleFill); })
-    .on("mousemove", function(event){ tooltip.style("left", (event.pageX + 10) + "px").style("top", (event.pageY + 10) + "px"); })
-    .on("mouseleave", function(){ d3.select(this).attr("opacity",1); tooltip.style("opacity",0); });
+    .on("mouseover", function(event){
+      d3.select(this).attr("opacity",0.85);
+      const fill = d3.select(this).attr("fill");
+      tooltip.style("opacity",1).html("Polygon (triangle) — color: " + fill);
+    })
+    .on("mousemove", function(event){
+      const fill = d3.select(this).attr("fill");
+      tooltip.style("left", (event.pageX + 10) + "px").style("top", (event.pageY + 10) + "px").html("Polygon (triangle) — color: " + fill);
+    })
+    .on("mouseleave", function(){ d3.select(this).attr("opacity",1); tooltip.style("opacity",0).html(""); });
 
 </script>
 
